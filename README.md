@@ -1,2 +1,1 @@
-# coins
- 
+# coin-site
