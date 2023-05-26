@@ -1,7 +1,7 @@
 import mysql.connector
 
 
-class DBManager:
+class Connection:
     def __init__(self, database='internet_data', host="localhost", user="root", password="password"):
         self.connection = mysql.connector.connect(
             user=user,
@@ -13,8 +13,5 @@ class DBManager:
         self.cursor = self.connection.cursor()
 
 
-
-
 if __name__ == '__main__':
-    my_db = DBManager()
-    my_db.create_db()
+    my_db = Connection()
