@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import os
-from db.Connection import Connection
+from backend.main.db.DBManager import DBManager
 
 app = Flask(__name__)
 
@@ -31,6 +31,6 @@ def grades():
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5001))
-    my_db = Connection()
+    my_db = DBManager()
     app.run(debug=True, host='0.0.0.0', port=port)
 

@@ -29,14 +29,14 @@ class DBManager:
                 print("Something went wrong: {}".format(err))
 
     def load_schema_files(self):
-        path = './schema/'
+        path = 'schema/'
         files = os.listdir(path)
         for file in files:
             self.execute_scripts_from_file(path + file)
 
 
     def load_data_files(self):
-        path = './data/'
+        path = 'data/'
         files = os.listdir(path)
         for file in files:
             self.execute_scripts_from_file(path + file)
