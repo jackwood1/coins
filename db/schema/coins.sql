@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS `coins` (
+  `id`        	   INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name`	         VARCHAR(50) DEFAULT NULL,
+  `country`		       INT(11) DEFAULT NULL,
+  `year`		       SMALLINT NOT NULL,
+  `unit`		       FLOAT NOT NULL,
+  `mint_mark`	       VARCHAR(16) DEFAULT NULL,
+  `mint`	         VARCHAR(64) DEFAULT NULL,
+ `datecreated` 	 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `datemodified`   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX `addresses` (`id`,`name`),
+  FOREIGN KEY (country) REFERENCES countries(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

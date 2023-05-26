@@ -1,39 +1,47 @@
 import mysql.connector
-
+import os
 
 class DBManager:
-    def __init__(self, database='example', host="db", user="root", password_file=None):
-        pf = open(password_file, 'r')
+    def __init__(self, database='coin_db', host="localhost", user="root", password="password"):
         self.connection = mysql.connector.connect(
             user=user,
-            password=pf.read(),
+            password=password,
             host=host,  # name of the mysql service as set in the docker compose file
             database=database,
             auth_plugin='mysql_native_password'
         )
-        pf.close()
         self.cursor = self.connection.cursor()
 
+    def execute_scripts_from_file(self, filename):
+        # Open and read the file as a single buffer
+        fd = open(filename, 'r')
+        sqlFile = fd.read()
+        fd.close()
 
-    def create_db(self):
-        self.cursor.execute('CREATE DATABASE coin_db')
+        # all SQL commands (split on ';')
+        sql_commands = sqlFile.split(';')
 
-        self.cursor.execute("SHOW DATABASES")
+        # Execute every command from the input file
+        for command in sql_commands:
+            try:
+                self.cursor.execute(command)
+                print(command)
+            except mysql.connector.Error as err:
+                print("Something went wrong: {}".format(err))
 
-        for x in self.cursor:
-            print(x)
+    def load_schema_files(self):
+        path = './schema/'
+        files = os.listdir(path)
+        for file in files:
+            self.execute_scripts_from_file(path + file)
 
 
-    def populate_db(self):
-        self.cursor.execute('DROP TABLE IF EXISTS blog')
-        self.cursor.execute('CREATE TABLE blog (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255))')
-        self.cursor.executemany('INSERT INTO blog (id, title) VALUES (%s, %s);',
-                                [(i, 'Blog post #%d' % i) for i in range(1, 5)])
-        self.connection.commit()
+    def load_data_files(self):
+        path = './data/'
+        files = os.listdir(path)
+        for file in files:
+            self.execute_scripts_from_file(path + file)
 
-    def query_titles(self):
-        self.cursor.execute('SELECT title FROM blog')
-        rec = []
-        for c in self.cursor:
-            rec.append(c[0])
-        return rec
+if __name__ == '__main__':
+    my_db = DBManager();
+    my_db.load_data_files()
