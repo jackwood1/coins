@@ -2,7 +2,7 @@ import mysql.connector
 
 
 class Connection:
-    def __init__(self, database='internet_data', host="localhost", user="root", password="password"):
+    def __init__(self, database='coin_db', host="127.0.0.1", user="root", password="password"):
         self.connection = mysql.connector.connect(
             user=user,
             password=password,
@@ -12,6 +12,3 @@ class Connection:
         )
         self.cursor = self.connection.cursor()
 
-
-if __name__ == '__main__':
-    my_db = Connection()

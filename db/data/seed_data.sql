@@ -1,10 +1,11 @@
 INSERT INTO countries (country) VALUES ('United States');
-INSERT INTO grades (grade) VALUES ('Uncirculated');
-INSERT INTO grades (grade) VALUES ('AU');
-INSERT INTO grades (grade) VALUES ('XF');
-INSERT INTO grades (grade) VALUES ('VF');
-INSERT INTO grades (grade) VALUES ('F');
-INSERT INTO grades (grade) VALUES ('VG');
+INSERT INTO grades (scale, grade, numeric_grade) VALUES ('NGC', 'MS/PF', 70);
+INSERT INTO grades (scale, grade, numeric_grade) VALUES ('NGC', 'MS/PF', 60);
+INSERT INTO grades (scale, grade, numeric_grade) VALUES ('NGC', 'AU', 50);
+INSERT INTO grades (scale, grade, numeric_grade) VALUES ('NGC', 'XF', 40);
+INSERT INTO grades (scale, grade, numeric_grade) VALUES ('NGC', 'VF', 20);
+INSERT INTO grades (scale, grade, numeric_grade) VALUES ('NGC', 'F', 12);
+INSERT INTO grades (scale, grade, numeric_grade) VALUES ('NGC', 'VG', 4);
 INSERT INTO status (status) VALUES ('Pass');
 INSERT INTO status (status) VALUES ('Owned');
 INSERT INTO status (status) VALUES ('Ordered');
