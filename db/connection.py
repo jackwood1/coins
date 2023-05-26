@@ -13,13 +13,7 @@ class DBManager:
         self.cursor = self.connection.cursor()
 
 
-    def create_db(self):
-        self.cursor.execute('CREATE DATABASE coindb')
 
-        self.cursor.execute("SHOW DATABASES")
-
-        for x in self.cursor:
-            print(x)
 
 if __name__ == '__main__':
     my_db = DBManager()

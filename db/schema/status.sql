@@ -1,4 +1,5 @@
 CREATE TABLE IF NOT EXISTS `status` (
   `id`        	   INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `status`		       VARCHAR(20) NOT NULL
+  `status`		       VARCHAR(20) NOT NULL,
+  CONSTRAINT unique_status UNIQUE (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

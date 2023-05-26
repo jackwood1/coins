@@ -3,6 +3,7 @@ import os
 
 class DBManager:
     def __init__(self, database='coin_db', host="localhost", user="root", password="password"):
+        #TODO this will fail if the db does not exist
         self.connection = mysql.connector.connect(
             user=user,
             password=password,
@@ -13,15 +14,13 @@ class DBManager:
         self.cursor = self.connection.cursor()
 
     def execute_scripts_from_file(self, filename):
-        # Open and read the file as a single buffer
         fd = open(filename, 'r')
         sqlFile = fd.read()
         fd.close()
 
-        # all SQL commands (split on ';')
+        #TODO fix this, creates empty query
         sql_commands = sqlFile.split(';')
 
-        # Execute every command from the input file
         for command in sql_commands:
             try:
                 self.cursor.execute(command)
@@ -42,6 +41,24 @@ class DBManager:
         for file in files:
             self.execute_scripts_from_file(path + file)
 
+
+    def create_db(self):
+        self.cursor.execute('CREATE DATABASE coin_db')
+        self.cursor.execute("SHOW DATABASES")
+        for x in self.cursor:
+            print(x)
+
+
+    def drop_db(self):
+        self.cursor.execute('DROP DATABASE coin_db')
+        self.cursor.execute("SHOW DATABASES")
+        for x in self.cursor:
+            print(x)
+
+
+
 if __name__ == '__main__':
     my_db = DBManager();
+    #my_db.create_db()
+    my_db.load_schema_files()
     my_db.load_data_files()
